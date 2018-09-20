@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<weblogic-web-app>
+
+  <!-- 定义Session名称，防止相同域下Session失效问题 -->
+  <session-descriptor>
+    <cookie-name>JSESSIONID_CORPORATELIBINTERFACE</cookie-name>
+  </session-descriptor>
+
+  <!-- 定义上下文根目录 -->
+  <context-root>/</context-root>
+  
+  <!-- 解决乱码 -->
+  <charset-params> 
+<input-charset> 
+<resource-path>/*</resource-path> 
+<java-charset-name>utf-8</java-charset-name> 
+</input-charset> 
+</charset-params>
+
+</weblogic-web-app> 
