@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import cn.com.sparknet.branchRecord.service.BranchRecordService;
+import cn.com.sparknet.branchRecord.service.BranchService;
 import net.sf.json.JSONObject;
 
 @Controller
@@ -18,23 +18,31 @@ import net.sf.json.JSONObject;
 public class BranchRecord {
 
 	@Resource
-	private BranchRecordService branchReacrdService;
+	private BranchService branchService;
 
 	@ResponseBody
 	@RequestMapping(params = "/branch/queryptent", method = RequestMethod.POST)
 	public JSONObject queryptent(@RequestBody String json, HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		JSONObject object = JSONObject.fromObject(json);
-		JSONObject result = new JSONObject();
-		String entName = object.getString("ENTNAME");
-		String uniScid = object.getString("UNISCID");
-		if(entName==null || uniScid== null || entName.trim().equals("") || uniScid.trim().equals("")){
-			result.put("success",false);
-			result.put("data","母公司企业名称和母公司统一社会信用代码参数不能为空");
-			response.setStatus(406);
-			return result;
-		}
-		result = branchReacrdService.queryptent("searchPath",object);
-		return result;
+		return branchService.queryptent("searchPath",object);
 	}
+	
+	@ResponseBody
+	@RequestMapping(params = "/branch/pushbrinfo", method = RequestMethod.POST)
+	public JSONObject pushbrinfo(@RequestBody String json, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		JSONObject object = JSONObject.fromObject(json);
+		return branchService.pushbrinfo("searchPath",object);
+	}
+	
+	@ResponseBody
+	@RequestMapping(params = "/branch/pushbrinfo", method = RequestMethod.POST)
+	public JSONObject savePushbrinfo(@RequestBody String json, HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		JSONObject object = JSONObject.fromObject(json);
+		return branchService.savePushbrinfo(request,object);
+		 
+	}
+	
 }
