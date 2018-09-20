@@ -34,8 +34,7 @@ public class BranchRecord {
 			response.setStatus(406);
 			return result;
 		}
-		object.put("searchPath", "/branch/queryptent");
-		result = branchReacrdService.queryptent(object);
+		result = branchReacrdService.queryptent("searchPath",object);
 		return result;
 	}
 }
